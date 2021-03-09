@@ -19,16 +19,6 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.scala-lang</groupId>
-      <artifactId>scala-library</artifactId>
-      <version>${scala.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.scalatest</groupId>
-      <artifactId>scalatest_${scala.binary.version}</artifactId>
-      <version>${scalatest.version}</version>
-    </dependency>
-    <dependency>
         <groupId>org.testng</groupId>
         <artifactId>testng</artifactId>
         <version>7.3.0</version>
@@ -55,7 +45,6 @@
   </distributionManagement>
 
   <build>
-    <sourceDirectory>src/main</sourceDirectory>
     <testSourceDirectory>src/test</testSourceDirectory>
     <plugins>
         <plugin>
@@ -92,21 +81,6 @@
             </execution>
             </executions>
         </plugin>
-      <!-- This plugin compiles Scala files -->
-        <plugin>
-            <groupId>net.alchim31.maven</groupId>
-            <artifactId>scala-maven-plugin</artifactId>
-            <executions>
-            <execution>
-                <id>scala-compile-first</id>
-                <phase>process-resources</phase>
-                <goals>
-                <goal>compile</goal>
-                <goal>testCompile</goal>
-                </goals>
-            </execution>
-            </executions>
-        </plugin>
 
         <!-- This plugin compiles Java files -->
         <plugin>
@@ -127,6 +101,7 @@
         </plugin>
         <plugin>
             <artifactId>maven-failsafe-plugin</artifactId>
+            <version>3.0.0-M5</version>
             <executions>
             <execution>
                 <goals>
