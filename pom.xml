@@ -12,9 +12,6 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <scala.version>2.11.12</scala.version>
-    <scala.binary.version>2.11</scala.binary.version>
-    <scalatest.version>3.0.4</scalatest.version>
   </properties>
 
   <dependencies>
@@ -34,15 +31,14 @@
           <artifactId>log4j-core</artifactId>
           <version>2.14.0</version>
       </dependency>
-  </dependencies>
 
-  <distributionManagement>
-    <repository>
-      <id>github2</id>
-      <name>GitHub OWNER Apache Maven Packages</name>
-      <url>https://maven.pkg.github.com/isortegahlabs/poc-automation-testNG</url>
-    </repository>
-  </distributionManagement>
+      <!--Selenium-->
+      <dependency>
+          <groupId>org.seleniumhq.selenium</groupId>
+          <artifactId>selenium-java</artifactId>
+          <version>3.141.59</version>
+      </dependency>
+  </dependencies>
 
   <build>
     <testSourceDirectory>src/test</testSourceDirectory>
@@ -57,48 +53,7 @@
             </suiteXmlFiles>
             </configuration>
         </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <executions>
-            <execution>
-                <phase>package</phase>
-                <goals>
-                <goal>single</goal>
-                </goals>
-                <configuration>
-                <archive>
-                    <manifest>
-                    <mainClass>
-                        me.isortegah.pocs.App
-                    </mainClass>
-                    </manifest>
-                </archive>
-                <descriptorRefs>
-                    <descriptorRef>jar-with-dependencies</descriptorRef>
-                </descriptorRefs>
-                </configuration>
-            </execution>
-            </executions>
-        </plugin>
 
-        <!-- This plugin compiles Java files -->
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <configuration>
-            <source>1.8</source>
-            <target>1.8</target>
-            </configuration>
-            <executions>
-            <execution>
-                <phase>compile</phase>
-                <goals>
-                <goal>compile</goal>
-                </goals>
-            </execution>
-            </executions>
-        </plugin>
         <plugin>
             <artifactId>maven-failsafe-plugin</artifactId>
             <version>3.0.0-M5</version>
@@ -114,9 +69,61 @@
             <includes><include>it/**</include></includes>
             </configuration>
         </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+                <source>7</source>
+                <target>7</target>
+            </configuration>
+        </plugin>
     </plugins>
   </build>
 
+    <profiles>
+        <profile>
+            <id>drivers</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.googlecode.maven-download-plugin</groupId>
+                        <artifactId>download-maven-plugin</artifactId>
+                        <version>1.6.1</version>
+                        <executions>
+                            <execution>
+                                <id>install-drivers-linux</id>
+                                <phase>test-compile</phase>
+                                <goals>
+                                    <goal>wget</goal>
+                                </goals>
+                                <configuration>
+                                    <url>https://chromedriver.storage.googleapis.com/88.0.4324.96/chromedriver_linux64.zip</url>
+                                    <unpack>true</unpack>
+                                    <outputDirectory>src/test/resources/drivers</outputDirectory>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>install-firefox</id>
+                                <phase>test-compile</phase>
+                                <goals>
+                                    <goal>wget</goal>
+                                </goals>
+                                <configuration>
+                                    <url>https://github.com/mozilla/geckodriver/releases/download/v0.29.0/geckodriver-v0.29.0-linux64.tar.gz</url>
+                                    <unpack>true</unpack>
+                                    <outputDirectory>src/test/resources/drivers</outputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
     

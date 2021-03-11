@@ -5,5 +5,6 @@ public enum BrowserType {
     IE,
     FIREFOX,
     SAFARI,
-    EDGE
+    EDGE,
+    HTMLUNIT
 }

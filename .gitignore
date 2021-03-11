@@ -2,3 +2,4 @@ target
 .idea
 *.iml
 logs
+src/test/resources/drivers/
