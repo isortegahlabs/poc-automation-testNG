@@ -4,13 +4,13 @@
   <test name="CaseOneChrome" >
     <classes>
       <class name="me.isortegah.pocs.CaseOneChromeTest"/>
-      <class name="me.isortegah.pocs.CaseTwoChromeTest"/>
+      <!--<class name="me.isortegah.pocs.CaseTwoChromeTest"/>-->
     </classes>
   </test>
  
-  <test name="CaseOneFirefox">
+  <!--<test name="CaseOneFirefox">
     <classes>
       <class name="me.isortegah.pocs.CaseOneFirefoxTest"/>
     </classes>
-  </test>
+  </test>-->
 </suite>
