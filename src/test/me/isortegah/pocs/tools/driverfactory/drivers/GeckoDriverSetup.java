@@ -3,7 +3,7 @@ package me.isortegah.pocs.tools.driverfactory.drivers;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 public class GeckoDriverSetup {
     private static final Logger logger = LogManager.getLogger(GeckoDriverSetup.class);
@@ -23,7 +23,8 @@ public class GeckoDriverSetup {
 
     public FirefoxDriver localSetup(String fileLocation){
         System.setProperty("webdriver.gecko.driver", fileLocation);
-
-        return new FirefoxDriver();
+        FirefoxOptions options = new FirefoxOptions();
+        //options.setHeadless(true);
+        return new FirefoxDriver(options);
     }
 }

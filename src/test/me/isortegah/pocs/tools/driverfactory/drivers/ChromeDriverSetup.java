@@ -31,6 +31,10 @@ public class ChromeDriverSetup {
         options.addArguments("--start-maximized");
         options.addArguments("--disabled-web-security");
         options.addArguments("--no-proxy-server");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        //options.addArguments("--headless");
+
 
         Map<String,Object> prefs = new HashMap<String, Object>();
         prefs.put("credentials_enable_service",false);
