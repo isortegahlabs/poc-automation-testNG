@@ -2,6 +2,7 @@ package me.isortegah.pocs;
 
 import me.isortegah.pocs.constants.BrowserType;
 import me.isortegah.pocs.tools.driverfactory.DriverFactory;
+import me.isortegah.pocs.tools.utils.settings.Config;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -15,6 +16,7 @@ public class CaseTwoChromeTest {
 
     @BeforeClass
     public void setUpTest() {
+        Config.getInstance().load();
         DriverFactory.getInstance().setDriver(BrowserType.CHROME);
         driver = DriverFactory.getInstance().getDriver();
         driver.get("https://google.com");

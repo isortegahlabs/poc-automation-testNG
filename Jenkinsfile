@@ -5,7 +5,7 @@ pipeline {
         stage('Test') {
           steps {
           withMaven(maven: 'mvn') {
-            sh 'mvn -P drivers test'
+            sh 'mvn -Dproperties=CI.properties -P drivers test '
             }
           }
         }

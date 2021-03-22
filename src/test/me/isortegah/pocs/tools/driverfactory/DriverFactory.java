@@ -1,7 +1,6 @@
 package me.isortegah.pocs.tools.driverfactory;
 
 import me.isortegah.pocs.constants.BrowserType;
-import me.isortegah.pocs.constants.WebdriverType;
 import me.isortegah.pocs.tools.driverfactory.drivers.ChromeDriverSetup;
 import me.isortegah.pocs.tools.driverfactory.drivers.GeckoDriverSetup;
 import org.openqa.selenium.WebDriver;
@@ -27,6 +26,7 @@ public class DriverFactory {
       protected WebDriver initialValue() {
           return null;
       }
+
     };
 
     public WebDriver getDriver(){

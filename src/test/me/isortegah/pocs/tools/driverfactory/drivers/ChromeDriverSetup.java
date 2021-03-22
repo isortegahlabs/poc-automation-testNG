@@ -1,6 +1,7 @@
 package me.isortegah.pocs.tools.driverfactory.drivers;
 
 import me.isortegah.pocs.constants.WebdriverType;
+import me.isortegah.pocs.tools.utils.settings.Config;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -10,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ChromeDriverSetup {
+
     private static final Logger logger = LogManager.getLogger(ChromeDriverSetup.class);
     private static ChromeDriverSetup chromeDriverSetup;
 
@@ -26,6 +28,7 @@ public class ChromeDriverSetup {
     }
 
     public ChromeDriver localSetup(String fileLocation){
+        Map<String, String> params = Config.getInstance().getParamsConfig();
         System.setProperty(WebdriverType.CHROME, fileLocation);
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--start-maximized");
@@ -33,7 +36,8 @@ public class ChromeDriverSetup {
         options.addArguments("--no-proxy-server");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
-        //options.addArguments("--headless");
+        if( params.get("headless").equals("true") )
+            options.addArguments("--headless");
 
 
         Map<String,Object> prefs = new HashMap<String, Object>();
