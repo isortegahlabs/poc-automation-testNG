@@ -1,0 +1,22 @@
+{
+    "capabilities": [
+      {
+        "browserName": "firefox",
+        "maxInstances": 3,
+        "platform": "Linux",
+        "webdriver.gecko.driver": "./../drivers/geckodriver"
+      }
+    ],
+    "_comment" : "Configuration for Node",
+    "cleanUpCycle": 2000,
+    "timeout": 30000,
+    "proxy": "org.openqa.grid.selenium.proxy.DefaultRemoteProxy",
+    "port": 5555,
+    "register": true,
+    "hubPort": 4444,
+    "maxSession": 8,
+    "hub" : "http://localhost:4444",
+    "role": "node"
+    
+  }
+  

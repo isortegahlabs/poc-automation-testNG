@@ -3,11 +3,14 @@ package me.isortegah.pocs.tools.driverfactory;
 import me.isortegah.pocs.constants.BrowserType;
 import me.isortegah.pocs.tools.driverfactory.drivers.ChromeDriverSetup;
 import me.isortegah.pocs.tools.driverfactory.drivers.GeckoDriverSetup;
+import me.isortegah.pocs.tools.driverfactory.drivers.RemoteWebDriverSetup;
+import me.isortegah.pocs.tools.utils.settings.Config;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class DriverFactory {
@@ -15,6 +18,7 @@ public class DriverFactory {
     private DriverFactory(){}
 
     private static DriverFactory instance = new DriverFactory();
+    private Map<String, String> config;
 
     public static DriverFactory getInstance(){
         return instance;
@@ -35,6 +39,8 @@ public class DriverFactory {
 
     public void setDriver(BrowserType browser){
         String driverPath = System.getProperty("user.dir") + "/src/test/resources/drivers/";
+
+        config = Config.getInstance().getParamsConfig();
 
         switch (browser.toString()) {
             case "CHROME":
@@ -97,13 +103,19 @@ public class DriverFactory {
     private void setDriverChrome(String driverPath){
         String fileLocation = driverPath + "chromedriver";
         fileLocation += (!isOsBaseUnix())?".exe":"";
-        driver.set(ChromeDriverSetup.getInstance().localSetup( fileLocation ));
+        if ( Boolean.parseBoolean(config.get("remoteWebDriver")) )
+            driver.set( RemoteWebDriverSetup.getInstance().remoteSetup(BrowserType.CHROME) );
+        else
+            driver.set(ChromeDriverSetup.getInstance().localSetup( fileLocation ));
     }
 
     private void setDriverFirefox(String driverPath) {
         String fileLocation = driverPath + "geckodriver";
         fileLocation += (!isOsBaseUnix())?".exe":"";
-        driver.set(GeckoDriverSetup.getInstance().localSetup( fileLocation ));
+        if ( Boolean.parseBoolean(config.get("remoteWebDriver")) )
+            driver.set( RemoteWebDriverSetup.getInstance().remoteSetup(BrowserType.FIREFOX) );
+        else
+            driver.set(GeckoDriverSetup.getInstance().localSetup( fileLocation ));
     }
 
     private Boolean isOsBaseUnix(){

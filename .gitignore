@@ -3,3 +3,4 @@ target
 *.iml
 logs
 src/test/resources/drivers/
+src/test/resources/**/*.jar

@@ -34,9 +34,16 @@ public class Config {
     }
 
     private Set<String> getParameters(){
-        Set<String> params = new HashSet<>(Arrays.asList(
-                "headless"));
+        Set<String> params = new HashSet<>(getListOfParams());
         return params;
+    }
+
+    private List<String> getListOfParams(){
+        return Arrays.asList(
+                "headless",
+                "remoteWebDriver",
+                "urlHub"
+        );
     }
 
     public Map<String, String> getParamsConfig(){

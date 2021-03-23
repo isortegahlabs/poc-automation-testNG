@@ -21,7 +21,7 @@ public class ChromeDriverSetup {
         if( chromeDriverSetup == null){
             chromeDriverSetup = new ChromeDriverSetup();
         } else {
-            logger.error("No se puede crear el objeto.");
+            logger.warn("No se puede crear el objeto.");
         }
 
         return chromeDriverSetup;
@@ -38,7 +38,6 @@ public class ChromeDriverSetup {
         options.addArguments("--disable-dev-shm-usage");
         if( params.get("headless").equals("true") )
             options.addArguments("--headless");
-
 
         Map<String,Object> prefs = new HashMap<String, Object>();
         prefs.put("credentials_enable_service",false);
