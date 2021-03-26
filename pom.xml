@@ -12,6 +12,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
   </properties>
 
   <dependencies>
@@ -32,6 +33,12 @@
           <version>2.14.0</version>
       </dependency>
 
+      <dependency>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>${maven-resources-plugin.version}</version>
+      </dependency>
+
       <!--Selenium-->
       <dependency>
           <groupId>org.seleniumhq.selenium</groupId>
@@ -43,6 +50,38 @@
   <build>
     <testSourceDirectory>src/test</testSourceDirectory>
     <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>${maven-resources-plugin.version}</version>
+            <configuration>
+                <encoding>UTF-8</encoding>
+            </configuration>
+            <executions>
+                <execution>
+                    <id>copy-resources</id>
+                    <phase>process-resources</phase>
+                    <goals>
+                        <goal>copy-resources</goal>
+                    </goals>
+                    <configuration>
+                        <outputDirectory>${basedir}/src/test/resources/generated-resources</outputDirectory>
+                        <resources>
+                            <resource>
+                                <directory>src/test/resources/properties</directory>
+                                <includes>
+                                    <include>**/*.*</include>
+                                </includes>
+                                <excludes>
+                                    <exclude>**/generated-resources/**</exclude>
+                                </excludes>
+                                <filtering>true</filtering>
+                            </resource>
+                        </resources>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
@@ -102,7 +141,7 @@
                                     <goal>wget</goal>
                                 </goals>
                                 <configuration>
-                                    <url>https://chromedriver.storage.googleapis.com/89.0.4389.23/chromedriver_linux64.zip</url>
+                                    <url>https://chromedriver.storage.googleapis.com/88.0.4324.96/chromedriver_linux64.zip</url>
                                     <unpack>true</unpack>
                                     <outputDirectory>src/test/resources/drivers</outputDirectory>
                                 </configuration>

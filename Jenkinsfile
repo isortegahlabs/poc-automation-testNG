@@ -5,7 +5,7 @@ pipeline {
         stage('Test') {
           steps {
           withMaven(maven: 'mvn') {
-            sh 'mvn -Dproperties=CI_GRID.properties test '
+            sh 'mvn -Dproperties=CI_GRID.properties -Ddomain=${DOMAIN} test '
             }
           }
         }

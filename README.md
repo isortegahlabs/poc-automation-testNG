@@ -23,3 +23,19 @@ https://github.com/SeleniumHQ/selenium/blob/selenium-2.53.0/java/server/src/org/
 Selenium remote
 https://medium.com/expedia-group-tech/getting-started-with-a-dockerized-selenium-grid-on-your-on-prem-data-centers-5b472a2d35a
 https://www.browserstack.com/guide/selenium-grid-tutorial#:~:text=What%20is%20Selenium%20Grid%3F,to%20multiple%20registered%20Grid%20nodes.
+
+
+
+sudo yum install -y git
+
+aws
+https://www.jenkins.io/doc/tutorials/tutorial-for-installing-jenkins-on-AWS/
+sudo yum update –y
+sudo yum install java-1.8.0-openjdk-devel -y
+sudo amazon-linux-extras install docker
+sudo yum install docker
+sudo service docker start
+sudo usermod -a -G docker ec2-user
+
+sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose

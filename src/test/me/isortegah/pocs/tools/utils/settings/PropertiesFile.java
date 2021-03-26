@@ -41,7 +41,7 @@ public class PropertiesFile {
     public Properties getProperties(){
         String file = "";
         file = ( System.getProperty("properties") != null)? System.getProperty("properties"):"default.properties";
-        return readPropertiesFile("properties/"+file);
+        return readPropertiesFile("generated-resources/"+file);
     }
 
 }
