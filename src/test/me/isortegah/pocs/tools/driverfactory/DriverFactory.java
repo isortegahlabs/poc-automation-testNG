@@ -37,6 +37,10 @@ public class DriverFactory {
         return driver.get();
     }
 
+    public void setDriver(String browser){
+        setDriver(BrowserType.valueOf(browser));
+    }
+
     public void setDriver(BrowserType browser){
         String driverPath = System.getProperty("user.dir") + "/src/test/resources/drivers/";
 

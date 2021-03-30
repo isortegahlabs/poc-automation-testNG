@@ -16,6 +16,9 @@ Static
 https://www.adictosaltrabajo.com/2015/09/17/la-directiva-static-en-java/
 
 
+Locators
+https://www.youtube.com/watch?v=2y9EhMGsYug
+
 Selenium grid
 https://github.com/SeleniumHQ/selenium/blob/selenium-3.141.59/java/server/src/org/openqa/grid/common/defaults/DefaultNodeWebDriver.json
 https://github.com/SeleniumHQ/selenium/blob/selenium-2.53.0/java/server/src/org/openqa/grid/common/defaults/DefaultNode.json
