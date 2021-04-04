@@ -19,8 +19,6 @@ public class Config {
     public static Config getInstance() {
         if( config == null ) {
             config = new Config();
-        } else {
-            logger.warn( "No se creara otra instancia de Config");
         }
         return config;
     }

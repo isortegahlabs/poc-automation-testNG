@@ -13,14 +13,8 @@ public class LocateElements {
     private static LocateElements locateElements;
     private static WebDriver driver;
 
-    private LocateElements(){
-        driver = DriverFactory.getInstance().getDriver();
-    }
-
-    public static LocateElements getInstance(){
-        if ( locateElements == null )
-            locateElements = new LocateElements();
-        return locateElements;
+    public LocateElements(WebDriver wd){
+        driver = wd;
     }
 
     public WebElement findElement(By locator){

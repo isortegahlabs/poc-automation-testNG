@@ -1,9 +1,11 @@
 package me.isortegah.pocs.tools.driverfactory.drivers;
 
 import me.isortegah.pocs.constants.BrowserType;
+import me.isortegah.pocs.constants.PlatformType;
 import me.isortegah.pocs.tools.utils.settings.Config;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -14,20 +16,22 @@ public class RemoteWebDriverSetup {
 
     private static final Logger logger = LogManager.getLogger(RemoteWebDriverSetup.class);
     private static RemoteWebDriverSetup remoteWebDriverSetup;
+    private PlatformType platform;
 
     private RemoteWebDriverSetup() {}
 
     public static RemoteWebDriverSetup getInstance() {
-        if ( remoteWebDriverSetup == null ) {
-            remoteWebDriverSetup = new RemoteWebDriverSetup();
-        } else {
-            logger.warn("No se creara el objeto RemoteWebDriverSetup");
-        }
+        logger.info("getIntance");
+        //if ( remoteWebDriverSetup == null ) {
+            return new RemoteWebDriverSetup();
+        //}
 
-        return remoteWebDriverSetup;
+        //return remoteWebDriverSetup;
     }
 
-    public RemoteWebDriver remoteSetup(BrowserType browser){
+    public RemoteWebDriver remoteSetup(BrowserType browser , PlatformType platformType){
+        logger.info("remoteSetup " + browser + " browser and " + platformType + " platform");
+        platform = platformType;
         try {
             DesiredCapabilities caps = null;
             switch (browser.toString()) {
@@ -38,7 +42,7 @@ public class RemoteWebDriverSetup {
                     caps = getCapsFirefox();
                     break;
                 case "SAFARI":
-                    getCapsSafari();
+                    caps = getCapsSafari();
                     break;
                 case "IE":
                     getCapsIE();
@@ -65,16 +69,22 @@ public class RemoteWebDriverSetup {
     private DesiredCapabilities getCapsChrome() {
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("browserName" , "chrome");
+        caps.setCapability("platform" , platform);
         return caps;
     }
 
     private DesiredCapabilities getCapsFirefox() {
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("browserName" , "firefox");
+        caps.setCapability("platform" , platform);
         return caps;
     }
 
-    private void getCapsSafari() {
+    private DesiredCapabilities getCapsSafari() {
+        DesiredCapabilities caps = new DesiredCapabilities();
+        caps.setCapability("browserName" , "safari");
+        caps.setCapability("platform" , platform);
+        return caps;
     }
 
     private void getCapsIE() {

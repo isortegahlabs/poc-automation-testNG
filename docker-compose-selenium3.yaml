@@ -16,6 +16,8 @@ services:
     environment:
       - HUB_HOST=selenium-hub
       - HUB_PORT=4444
+      - NODE_MAX_SESSION=3
+      - NODE_MAX_INSTANCES=3
     ports: 
       - "5900:5900"
   firefox:
@@ -27,5 +29,7 @@ services:
     environment:
       - HUB_HOST=selenium-hub
       - HUB_PORT=4444
+      - NODE_MAX_SESSION=3
+      - NODE_MAX_INSTANCES=3
     ports: 
       - "5901:5900"

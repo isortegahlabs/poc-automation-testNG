@@ -1,13 +1,17 @@
 package me.isortegah.pocs.tools.driverfactory;
 
 import me.isortegah.pocs.constants.BrowserType;
+import me.isortegah.pocs.constants.PlatformType;
 import me.isortegah.pocs.tools.driverfactory.drivers.ChromeDriverSetup;
 import me.isortegah.pocs.tools.driverfactory.drivers.GeckoDriverSetup;
 import me.isortegah.pocs.tools.driverfactory.drivers.RemoteWebDriverSetup;
 import me.isortegah.pocs.tools.utils.settings.Config;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 
 import java.util.Map;
@@ -16,9 +20,10 @@ import java.util.concurrent.TimeUnit;
 public class DriverFactory {
 
     private DriverFactory(){}
-
+    private static final Logger logger = LogManager.getLogger(DriverFactory.class);
     private static DriverFactory instance = new DriverFactory();
     private Map<String, String> config;
+    private PlatformType platform;
 
     public static DriverFactory getInstance(){
         return instance;
@@ -38,10 +43,15 @@ public class DriverFactory {
     }
 
     public void setDriver(String browser){
-        setDriver(BrowserType.valueOf(browser));
+        setDriver(BrowserType.valueOf(browser), PlatformType.LINUX);
     }
 
-    public void setDriver(BrowserType browser){
+    public void setDriver(String browser , String platform){
+        setDriver(BrowserType.valueOf(browser), PlatformType.valueOf(platform));
+    }
+
+    public void setDriver(BrowserType browser , PlatformType platformType ){
+        platform = platformType;
         String driverPath = System.getProperty("user.dir") + "/src/test/resources/drivers/";
 
         config = Config.getInstance().getParamsConfig();
@@ -97,6 +107,12 @@ public class DriverFactory {
     }
 
     private void setDriverSafari(String driverPath) {
+        if ( Boolean.parseBoolean(config.get("remoteWebDriver")) )
+            driver.set(
+                    RemoteWebDriverSetup.getInstance()
+                            .remoteSetup(BrowserType.SAFARI, platform) );
+        //else
+          //  driver.set(ChromeDriverSetup.getInstance().localSetup( fileLocation ));
     }
 
     public void removeDriver(){
@@ -107,18 +123,24 @@ public class DriverFactory {
     private void setDriverChrome(String driverPath){
         String fileLocation = driverPath + "chromedriver";
         fileLocation += (!isOsBaseUnix())?".exe":"";
-        if ( Boolean.parseBoolean(config.get("remoteWebDriver")) )
-            driver.set( RemoteWebDriverSetup.getInstance().remoteSetup(BrowserType.CHROME) );
-        else
+        if ( Boolean.parseBoolean(config.get("remoteWebDriver")) ){
+            RemoteWebDriver rwd = RemoteWebDriverSetup.getInstance()
+                    .remoteSetup(BrowserType.CHROME, platform);
+            logger.info("SessionID chrome " + rwd.getSessionId());
+            driver.set(rwd);
+        } else
             driver.set(ChromeDriverSetup.getInstance().localSetup( fileLocation ));
     }
 
     private void setDriverFirefox(String driverPath) {
         String fileLocation = driverPath + "geckodriver";
         fileLocation += (!isOsBaseUnix())?".exe":"";
-        if ( Boolean.parseBoolean(config.get("remoteWebDriver")) )
-            driver.set( RemoteWebDriverSetup.getInstance().remoteSetup(BrowserType.FIREFOX) );
-        else
+        if ( Boolean.parseBoolean(config.get("remoteWebDriver")) ){
+            RemoteWebDriver rwd = RemoteWebDriverSetup.getInstance()
+                    .remoteSetup(BrowserType.FIREFOX, platform);
+            logger.info("SessionID firefox " + rwd.getSessionId());
+            driver.set( rwd);
+        } else
             driver.set(GeckoDriverSetup.getInstance().localSetup( fileLocation ));
     }
 

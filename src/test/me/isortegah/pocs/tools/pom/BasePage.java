@@ -9,11 +9,12 @@ import org.openqa.selenium.WebDriver;
 public class BasePage {
 
     private static final Logger logger = LogManager.getLogger(BasePage.class);
-    private static WebDriver driver;
-    public static LocateElements locateElem = LocateElements.getInstance();
+    public static WebDriver driver;
+    public static LocateElements locateElem;
 
-    public BasePage(){
-        driver = DriverFactory.getInstance().getDriver();
+    public BasePage(WebDriver wd){
+        driver = wd;
+        locateElem = new LocateElements(wd);
     }
 
     public void goToPage(String url){

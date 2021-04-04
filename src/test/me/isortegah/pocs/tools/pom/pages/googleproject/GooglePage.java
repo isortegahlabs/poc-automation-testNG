@@ -5,23 +5,16 @@ import me.isortegah.pocs.tools.pom.BasePage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class GooglePage extends BasePage {
 
-    WebDriver driver;
     private static final Logger logger = LogManager.getLogger(GooglePage.class);
-    private static GooglePage googlePage;
 
-    private GooglePage(){
-        driver = DriverFactory.getInstance().getDriver();
-    }
-
-    public static GooglePage getInstance(){
-        if ( googlePage == null )
-            googlePage = new GooglePage();
-        return googlePage;
+    public GooglePage(WebDriver wd){
+        super(wd);
     }
 
     public GooglePage goTo(){
@@ -36,9 +29,12 @@ public class GooglePage extends BasePage {
         return this;
     }
 
-    public GooglePage selectTopic(String resultTopic , String typeLocator){
+    public GooglePage selectTopic(String resultTopic , String typeLocator) throws InterruptedException {
+        Thread.sleep(2000);
         WebElement element = locateElem.findElement(typeLocator, resultTopic);
-        element.click();
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        js.executeScript("arguments[0].click();",element);
+        //element.click();
         return this;
     }
 

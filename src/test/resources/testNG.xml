@@ -1,8 +1,9 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
   
-<suite name="SuiteGooglePage" verbose="1" parallel="tests" thread-count="4">
+<suite name="SuiteGooglePage" verbose="1" parallel="tests" thread-count="5">
   <test name="ChromeTest" >
-    <parameter name="browser" value="CHROME"></parameter>
+    <parameter name="browser" value="FIREFOX"></parameter>
+    <parameter name="platform" value="LINUX"></parameter>
     <classes>
       <class name="me.isortegah.pocs.GooglePageTest"/>
     </classes>
@@ -10,15 +11,17 @@
 
   <test name="ChromeTest2" >
     <parameter name="browser" value="CHROME"></parameter>
+    <parameter name="platform" value="LINUX"></parameter>
     <classes>
       <class name="me.isortegah.pocs.GooglePageTest"/>
     </classes>
   </test>
-
+<!--
   <test name="FirefoxTest">
     <parameter name="browser" value="FIREFOX"></parameter>
+    <parameter name="platform" value="LINUX"></parameter>
     <classes>
       <class name="me.isortegah.pocs.GooglePageTest"/>
     </classes>
-  </test>
+  </test>-->
 </suite>
