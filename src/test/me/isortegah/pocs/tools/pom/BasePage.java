@@ -4,16 +4,17 @@ import me.isortegah.pocs.tools.driverfactory.DriverFactory;
 import me.isortegah.pocs.tools.utils.selenium.LocateElements;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class BasePage {
 
     private static final Logger logger = LogManager.getLogger(BasePage.class);
-    public static WebDriver driver;
+    public static RemoteWebDriver driver;
     public static LocateElements locateElem;
 
-    public BasePage(WebDriver wd){
+    public BasePage(RemoteWebDriver wd){
         driver = wd;
+        logger.info("BasePage sessionID: " + wd.getSessionId());
         locateElem = new LocateElements(wd);
     }
 

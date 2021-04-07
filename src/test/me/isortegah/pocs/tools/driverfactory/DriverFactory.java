@@ -29,16 +29,16 @@ public class DriverFactory {
         return instance;
     }
 
-    ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>(){
+    protected static ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<RemoteWebDriver>(){
 
       @Override
-      protected WebDriver initialValue() {
+      protected RemoteWebDriver initialValue() {
           return null;
       }
 
     };
 
-    public WebDriver getDriver(){
+    public RemoteWebDriver getDriver(){
         return driver.get();
     }
 
