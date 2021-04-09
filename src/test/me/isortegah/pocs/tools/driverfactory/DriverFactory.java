@@ -139,7 +139,7 @@ public class DriverFactory {
             RemoteWebDriver rwd = RemoteWebDriverSetup.getInstance()
                     .remoteSetup(BrowserType.FIREFOX, platform);
             logger.info("SessionID firefox " + rwd.getSessionId());
-            driver.set( rwd);
+            driver.set( rwd );
         } else
             driver.set(GeckoDriverSetup.getInstance().localSetup( fileLocation ));
     }

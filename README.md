@@ -27,6 +27,10 @@ Selenium remote
 https://medium.com/expedia-group-tech/getting-started-with-a-dockerized-selenium-grid-on-your-on-prem-data-centers-5b472a2d35a
 https://www.browserstack.com/guide/selenium-grid-tutorial#:~:text=What%20is%20Selenium%20Grid%3F,to%20multiple%20registered%20Grid%20nodes.
 https://www.lambdatest.com/blog/selenium-grid-setup-tutorial/
+https://www.swtestacademy.com/selenium-parallel-tests-grid-testng/
+https://www.swtestacademy.com/local-parallel-testing-selenium/
+https://github.com/browserstack/testng-browserstack/blob/0dd314db4cf40e9dc59677ddb616780257fb0f5b/src/test/java/com/browserstack/BrowserStackTestNGTest.java#L19
+https://bitbar.com/blog/how-to-automate-appium-java-tests-in-parallel-using-testng/
 
 
 sudo yum install -y git
