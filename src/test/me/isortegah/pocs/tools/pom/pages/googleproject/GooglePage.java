@@ -13,7 +13,7 @@ public class GooglePage extends BasePage {
     private static final Logger logger = LogManager.getLogger(GooglePage.class);
 
     public GooglePage(RemoteWebDriver wd){
-        super(wd);
+        super();
         logger.info("GooglePage: " + wd.getSessionId());
     }
 

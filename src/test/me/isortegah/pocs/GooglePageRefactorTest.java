@@ -26,7 +26,7 @@ public class GooglePageRefactorTest {
     @Parameters({"browser","platform"})
     public void setUpTest(String browser, String platform) throws MalformedURLException {
         Config.getInstance().load();
-        System.out.println("Chrome Browser Initiated");
+        System.out.println(browser + " Browser Initiated");
         capabilities = new DesiredCapabilities();
         capabilities.setBrowserName(browser.toLowerCase());
         capabilities.setPlatform(Platform.LINUX);
@@ -42,12 +42,11 @@ public class GooglePageRefactorTest {
     @Test(priority = 0)
     public void stepOne() throws InterruptedException {
         GooglePageRefactor googlePageRefactor = new GooglePageRefactor();
-        googlePageRefactor.setDriver(getDriver()).goTo()
-                .search("amazon méxico")
+        googlePageRefactor.setDriver(getDriver())
+                .goTo()
+                .search("amazon méxico");
+        googlePageRefactor.setDriver(getDriver())
                 .selectTopic("//div[@id='res']//a[@href='https://www.amazon.com.mx/']", "xpath");
-        logger.info("Thread: " + Thread.currentThread().getId() + " SessionID: " + getDriver().getSessionId());
-        getDriver().findElement(By.xpath("//div[@id='res']//a[@href='https://www.amazon.com.mx/']")).click();
-        Thread.sleep(2000);
         /*logger.trace("Hello there trace!");
         logger.debug("Hello there debug!");
         logger.info("Hello there info!");
@@ -64,6 +63,7 @@ public class GooglePageRefactorTest {
     @AfterClass
     void terminate () {
         //Remove the ThreadLocalMap element
+        logger.info("");
         driver.remove();
     }
 }

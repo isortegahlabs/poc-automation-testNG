@@ -12,15 +12,14 @@ public class BasePage {
     public static RemoteWebDriver driver;
     public static LocateElements locateElem;
 
-    public BasePage(RemoteWebDriver wd){
-        driver = wd;
-        logger.info("BasePage sessionID: " + wd.getSessionId());
-        locateElem = new LocateElements(wd);
+    public BasePage(){}
+
+    public void init(RemoteWebDriver rwd){
+        driver = rwd;
+        locateElem = new LocateElements(rwd);
     }
 
     public void goToPage(String url){
         driver.get(url);
     }
-
-
 }

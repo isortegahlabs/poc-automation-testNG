@@ -20,7 +20,7 @@ public class GoogleParallelTestThreadLocal {
     @BeforeMethod
     public void setUp(String browser) throws MalformedURLException
     {
-        System.out.println("Chrome Browser Initiated");
+        System.out.println(browser + " Browser Initiated");
         capabilities = new DesiredCapabilities();
         capabilities.setBrowserName(browser.toLowerCase());
         capabilities.setPlatform(Platform.LINUX);
