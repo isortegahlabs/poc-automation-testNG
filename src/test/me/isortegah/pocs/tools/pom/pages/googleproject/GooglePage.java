@@ -12,9 +12,13 @@ public class GooglePage extends BasePage {
 
     private static final Logger logger = LogManager.getLogger(GooglePage.class);
 
-    public GooglePage(RemoteWebDriver wd){
+    public GooglePage(){
         super();
-        logger.info("GooglePage: " + wd.getSessionId());
+    }
+
+    public GooglePage setDriver(RemoteWebDriver rwd){
+        init(rwd);
+        return this;
     }
 
     public GooglePage goTo(){
@@ -31,8 +35,7 @@ public class GooglePage extends BasePage {
 
     public GooglePage selectTopic(String resultTopic , String typeLocator) throws InterruptedException {
         WebElement element = locateElem.findElement(typeLocator, resultTopic);
-        JavascriptExecutor js = (JavascriptExecutor)driver;
-        js.executeScript("arguments[0].click();",element);
+        driver.executeScript("arguments[0].click();",element);
         //element.click();
         return this;
     }

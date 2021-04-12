@@ -23,14 +23,14 @@ public class GooglePageTest {
         logger.info("setupTest with platform " + platform + " and " + browser + " browser.");
     }
 
-    @Test(priority = 0)
+    @Test(priority = 1)
     public void stepOne() throws InterruptedException {
         logger.info("stepOne: " + wd.getSessionId());
-        GooglePage googlePage = new GooglePage(wd);
-        googlePage.goTo()
+        GooglePage googlePage = new GooglePage();
+        googlePage.setDriver(wd).goTo()
                 .search("amazon méxico")
                 .selectTopic("//div[@id='res']//a[@href='https://www.amazon.com.mx/']", "xpath");
-        Thread.sleep(5000);
+
         /*logger.trace("Hello there trace!");
         logger.debug("Hello there debug!");
         logger.info("Hello there info!");

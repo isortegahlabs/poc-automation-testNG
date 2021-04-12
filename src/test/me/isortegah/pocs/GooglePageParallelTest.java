@@ -1,14 +1,10 @@
 package me.isortegah.pocs;
 
-import me.isortegah.pocs.tools.driverfactory.DriverFactory;
-import me.isortegah.pocs.tools.pom.pages.googleproject.GooglePage;
 import me.isortegah.pocs.tools.pom.pages.googleproject.GooglePageRefactor;
 import me.isortegah.pocs.tools.utils.settings.Config;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Platform;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.*;
@@ -16,11 +12,11 @@ import org.testng.annotations.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class GooglePageRefactorTest {
+public class GooglePageParallelTest {
 
-    private static final Logger logger = LogManager.getLogger(GooglePageRefactorTest.class);
+    private static final Logger logger = LogManager.getLogger(GooglePageParallelTest.class);
     public DesiredCapabilities capabilities = new DesiredCapabilities();
-    protected static ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<RemoteWebDriver>();
+    protected static ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
 
     @BeforeClass
     @Parameters({"browser","platform"})
@@ -34,12 +30,7 @@ public class GooglePageRefactorTest {
         logger.info("setupTest with platform " + platform + " and " + browser + " browser. setUpTest sessionID: "+ getDriver().getSessionId());
     }
 
-    public RemoteWebDriver getDriver() {
-        //Get driver from ThreadLocalMap
-        return driver.get();
-    }
-
-    @Test(priority = 0)
+    @Test(priority = 1)
     public void stepOne() throws InterruptedException {
         GooglePageRefactor googlePageRefactor = new GooglePageRefactor();
         googlePageRefactor.setDriver(getDriver())
@@ -47,12 +38,6 @@ public class GooglePageRefactorTest {
                 .search("amazon méxico");
         googlePageRefactor.setDriver(getDriver())
                 .selectTopic("//div[@id='res']//a[@href='https://www.amazon.com.mx/']", "xpath");
-        /*logger.trace("Hello there trace!");
-        logger.debug("Hello there debug!");
-        logger.info("Hello there info!");
-        logger.warn("Hello there warn!");
-        logger.error("Hello there error!");
-        logger.fatal("Hello there fatal!");*/
     }
 
     @AfterMethod
@@ -65,5 +50,10 @@ public class GooglePageRefactorTest {
         //Remove the ThreadLocalMap element
         logger.info("");
         driver.remove();
+    }
+
+    public RemoteWebDriver getDriver() {
+        //Get driver from ThreadLocalMap
+        return driver.get();
     }
 }
