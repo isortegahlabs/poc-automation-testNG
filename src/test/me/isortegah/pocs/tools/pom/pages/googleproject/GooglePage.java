@@ -21,8 +21,9 @@ public class GooglePage extends BasePage {
         return this;
     }
 
-    public GooglePage goTo(){
+    public GooglePage goTo() throws InterruptedException {
         goToPage("https://google.com.mx");
+        Thread.sleep(1000);
         return this;
     }
 
@@ -30,6 +31,7 @@ public class GooglePage extends BasePage {
         WebElement element = locateElem.findElement(new By.ByName("q"));
         element.sendKeys(searchTopic);
         element.submit();
+        Thread.sleep(2000);
         return this;
     }
 
