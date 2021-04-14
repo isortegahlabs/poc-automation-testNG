@@ -9,7 +9,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class LocateElements {
     private static final Logger logger = LogManager.getLogger(LocateElements.class);
-    private static RemoteWebDriver driver;
+    private RemoteWebDriver driver;
 
     public LocateElements(RemoteWebDriver wd){
         driver = wd;

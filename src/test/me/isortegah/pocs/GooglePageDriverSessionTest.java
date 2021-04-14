@@ -20,32 +20,31 @@ import java.net.URL;
  public class GooglePageDriverSessionTest {
 
     private static final Logger logger = LogManager.getLogger(GooglePageDriverSessionTest.class);
-    final ThreadLocal<RemoteWebDriver> wd = new ThreadLocal<>();
+    //final ThreadLocal<RemoteWebDriver> wd = new ThreadLocal<>();
+    private RemoteWebDriver wd = null;
     public DesiredCapabilities capabilities = new DesiredCapabilities();
 
     @BeforeClass
     @Parameters({"browser","platform"})
     public void setUpTest(String browser, String platform) throws InterruptedException, MalformedURLException {
         Config.getInstance().load();
-        if(browser.equals("FIREFOX"))
-            Thread.sleep(8000);
         //DriverFactory.getInstance().setDriver( browser , platform );
         capabilities = new DesiredCapabilities();
         capabilities.setBrowserName(browser.toLowerCase());
         capabilities.setPlatform(Platform.LINUX);
-        wd.set(new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"),capabilities));
+        wd = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"),capabilities);
         //wd.set(DriverFactory.getInstance().getDriver());
         //logger.info("** ORales--> " + DriverSessionManager.getInstance().getDriverSession(wd.get().getSessionId().toString()).getSessionId());
-        logger.info("setUpTest sessionID: " + wd.get().getSessionId());
+        logger.info("setUpTest sessionID: " + wd.getSessionId());
         logger.info("setupTest with platform " + platform + " and " + browser + " browser.");
 
     }
 
     @Test(priority = 1)
     public void stepOne() throws InterruptedException {
-        logger.info("stepOne: " + wd.get().getSessionId());
+        logger.info("stepOne: " + wd.getSessionId());
         GooglePage googlePage = new GooglePage();
-        googlePage.setDriver(wd.get()).goTo()
+        googlePage.setDriver(wd).goTo()
                 .search("amazon méxico")
                 .selectTopic("//div[@id='res']//a[@href='https://www.amazon.com.mx/']", "xpath");
     }
@@ -53,7 +52,6 @@ import java.net.URL;
     @AfterClass
     public void testDown(){
         //DriverFactory.getInstance().removeDriver();
-        wd.get().quit();
-        wd.remove();
+        wd.quit();
     }
 }
