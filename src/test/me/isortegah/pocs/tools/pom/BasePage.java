@@ -11,7 +11,9 @@ public class BasePage {
     public RemoteWebDriver driver;
     public LocateElements locateElem;
 
-    public BasePage(){}
+    public BasePage(RemoteWebDriver driver){
+        init(driver);
+    }
 
     public void init(RemoteWebDriver rwd){
         driver = rwd;

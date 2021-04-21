@@ -89,8 +89,7 @@
             <configuration>
                 <forkCount>1</forkCount>
                 <suiteXmlFiles>
-                    <suiteXmlFile>src/test/resources/testNGDriverManager.xml</suiteXmlFile>
-                    <!--<suiteXmlFile>src/test/resources/testNG.xml</suiteXmlFile>-->
+                    <suiteXmlFile>src/test/resources/testNG.xml</suiteXmlFile>
                     <!--<suiteXmlFile>src/test/resources/testNGParallelTest.xml</suiteXmlFile>-->
                 </suiteXmlFiles>
             </configuration>

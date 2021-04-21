@@ -1,23 +1,18 @@
 package me.isortegah.pocs.tools.pom.pages.googleproject;
 
+import me.isortegah.pocs.tools.driverfactory.DriverFactory;
 import me.isortegah.pocs.tools.pom.BasePage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class GooglePage extends BasePage {
 
     private static final Logger logger = LogManager.getLogger(GooglePage.class);
 
     public GooglePage(){
-        super();
-    }
-
-    public GooglePage setDriver(RemoteWebDriver rwd){
-        init(rwd);
-        return this;
+        super(DriverFactory.getInstance().getDriver());
     }
 
     public GooglePage goTo() throws InterruptedException {
@@ -37,7 +32,6 @@ public class GooglePage extends BasePage {
     public GooglePage selectTopic(String resultTopic , String typeLocator) throws InterruptedException {
         WebElement element = locateElem.findElement(typeLocator, resultTopic);
         driver.executeScript("arguments[0].click();",element);
-        //element.click();
         return this;
     }
 
