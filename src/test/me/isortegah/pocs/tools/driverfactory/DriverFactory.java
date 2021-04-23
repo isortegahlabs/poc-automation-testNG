@@ -28,14 +28,7 @@ public class DriverFactory {
         return instance;
     }
 
-    protected static ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<RemoteWebDriver>(){
-
-      @Override
-      protected RemoteWebDriver initialValue() {
-          return null;
-      }
-
-    };
+    static ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
 
     public RemoteWebDriver getDriver(){
         return driver.get();
@@ -49,7 +42,7 @@ public class DriverFactory {
         setDriver(BrowserType.valueOf(browser), PlatformType.valueOf(platform));
     }
 
-    public void setDriver(BrowserType browser , PlatformType platformType ){
+    synchronized void setDriver(BrowserType browser , PlatformType platformType ){
         platform = platformType;
         String driverPath = System.getProperty("user.dir") + "/src/test/resources/drivers/";
 
@@ -119,7 +112,7 @@ public class DriverFactory {
         driver.remove();
     }
 
-    private void setDriverChrome(String driverPath){
+    synchronized void setDriverChrome(String driverPath){
         String fileLocation = driverPath + "chromedriver";
         fileLocation += (!isOsBaseUnix())?".exe":"";
         if ( Boolean.parseBoolean(config.get("remoteWebDriver")) ){
@@ -131,7 +124,7 @@ public class DriverFactory {
             driver.set(ChromeDriverSetup.getInstance().localSetup( fileLocation ));
     }
 
-    private void setDriverFirefox(String driverPath) {
+    synchronized void setDriverFirefox(String driverPath) {
         String fileLocation = driverPath + "geckodriver";
         fileLocation += (!isOsBaseUnix())?".exe":"";
         if ( Boolean.parseBoolean(config.get("remoteWebDriver")) ){
