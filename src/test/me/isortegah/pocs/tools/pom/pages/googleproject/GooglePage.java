@@ -10,9 +10,18 @@ import org.openqa.selenium.WebElement;
 public class GooglePage extends BasePage {
 
     private static final Logger logger = LogManager.getLogger(GooglePage.class);
+    private static ThreadLocal<GooglePage> instance = new ThreadLocal<>();
 
-    public GooglePage(){
+    private GooglePage(){
         super(DriverFactory.getInstance().getDriver());
+    }
+
+    public static GooglePage getInstance(){
+        return instance.get();
+    }
+
+    public static void setInstance(){
+        instance.set(new GooglePage());
     }
 
     public GooglePage goTo() throws InterruptedException {

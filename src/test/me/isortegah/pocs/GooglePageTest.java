@@ -21,8 +21,10 @@ public class GooglePageTest {
 
     @Test(priority = 1)
     public void stepOne() throws InterruptedException {
-        GooglePage googlePage = new GooglePage();
-        googlePage.goTo()
+        GooglePage.setInstance();
+
+        //GooglePage googlePage = new GooglePage();
+        GooglePage.getInstance().goTo()
                 .search("amazon méxico")
                 .selectTopic("//div[@id='res']//a[@href='https://www.amazon.com.mx/']", "xpath");
 
